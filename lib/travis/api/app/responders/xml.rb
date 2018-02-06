@@ -38,8 +38,8 @@ module Travis::Api::App::Responders
     end
 
     def apply
+      @resource = Array(resource)
       super
-
       TEMPLATE_ERB.result(binding)
     end
 

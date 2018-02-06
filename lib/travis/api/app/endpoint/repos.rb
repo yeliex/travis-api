@@ -2,34 +2,6 @@ require 'travis/api/app'
 
 class Travis::Api::App
   class Endpoint
-    class RepoStatus < Endpoint
-      before do
-        halt 401 if private_mode? && !org? && !authenticated?
-      end
-
-      set :pattern, capture: { id: /\d+/ }
-
-      get '/:id/cc', scope: [:public, :travis_token] do
-        respond_with service(:find_repo, params.merge(schema: 'cc')), responder: :xml
-      end
-
-      get '/:owner_name', scope: [:public, :travis_token] do
-        respond_with service(:find_repos, params.merge(schema: 'cc')), responder: :xml
-      end
-
-      get '/:owner_name/:name', scope: [:public, :travis_token] do
-        respond_with service(:find_repo, params), type_hint: Repository, responders: [:badge, :image, :xml]
-      end
-
-      get '/:owner_name/:name/builds', scope: [:public, :travis_token] do
-        respond_with service(:find_builds, params), responder: :atom, responders: :atom
-      end
-
-      get '/:owner_name/:name/cc', scope: [:public, :travis_token] do
-        respond_with service(:find_repo, params.merge(schema: 'cc')), responder: :xml
-      end
-    end
-
     class Repos < Endpoint
       before { authenticate_by_mode! }
 
