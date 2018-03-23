@@ -11,6 +11,14 @@ module Travis::API::V3
 
     serialize :github_oauth_token, Travis::Settings::EncryptedColumn.new(disable: true)
 
+    def migrating?
+      self.class.column_names.include?('migrating') && super
+    end
+
+    def migrated_at
+      self.class.column_names.include?('migrated_at') && super
+    end
+
     def repository_ids
       repositories.pluck(:id)
     end

@@ -10,6 +10,7 @@ module Travis::API::V3
     def run
       repository = check_login_and_find(:repository)
       access_control.permissions(repository).create_request!
+      return repo_migrated if migrated?(repository)
 
       user      = find(:user) if access_control.full_access? and params_for? 'user'.freeze
       user    ||= access_control.user
