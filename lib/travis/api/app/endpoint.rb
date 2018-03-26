@@ -46,7 +46,7 @@ class Travis::Api::App
       }
 
       def disallow_migrating!(repo)
-        halt 406, MSGS[:migrated] if repo.migrating || repo.migrated_at
+        halt 406, MSGS[:migrated] if repo.migrating? || repo.migrated_at
       end
 
       def allow_public?
