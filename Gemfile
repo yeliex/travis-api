@@ -49,7 +49,7 @@ gem 'jemalloc', git: 'https://github.com/travis-ci/jemalloc-rb'
 gem 'customerio'
 
 gem 'redlock'
-gem 'rake', '~> 0.9.2'
+gem 'rake', '~> 12.3.3'
 
 gem 'libhoney'
 gem 'opencensus'
